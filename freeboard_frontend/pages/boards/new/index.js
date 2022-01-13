@@ -1,5 +1,30 @@
 import { useState } from "react";
+import { useMutation, gql } from "@apollo/client";
+
 import * as register from "../../../styles/register";
+
+
+const CREATE_BOARD = gql`
+  
+mutation createBoard($createBoardInput:CreateBoardInput!) {
+
+  
+  createBoard(createBoardInput:$createBoardInput){
+    _id
+    writer
+    title
+    contents
+    
+
+
+  }
+
+
+}
+
+
+
+`
 export default function Home() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -10,7 +35,72 @@ export default function Home() {
   const [passwordError, setPasswordError] = useState("");
   const [titleError, setTitleError] = useState("");
   const [contentError, setContentError] = useState("");
-// text
+  const [createBoard] = useMutation(CREATE_BOARD);
+
+
+ 
+
+  const onClickSubmit= async ()=> {
+
+const result = await createBoard({
+
+variables: {
+createBoardInput:{
+writer: userName,
+password: password,
+title: title,
+contents:content
+
+
+}
+}
+
+
+
+})
+
+
+    if (!userName) {
+                
+      setUserNameError("red");
+    } else if (userNameError) {
+      setUserNameError("");
+ 
+    }
+
+    if (!password) {
+     
+      setPasswordError("red");
+    } else if (passwordError) {
+      setPasswordError("");
+  
+    }
+
+    if (!title) {
+      
+      setTitleError("red");
+    } else if (titleError) {
+      setTitleError("");
+    
+    }
+
+    if (!content) {
+   
+      setContentError("red");
+    } else if (contentError) {
+      setContentError("");
+      
+    }
+
+    if (!userName || !password || !title || !content) {
+      alert("입력하지 않은 칸이 있습니다.");
+    } else if (userName && password && title && content) {
+      alert("회원가입이 완료되었습니다.");
+    }
+
+console.log(result)
+
+  }
   return (
     <>
       <register.Wrapper>
@@ -109,45 +199,7 @@ export default function Home() {
             </register.SettingSelectBox>
           </register.ContentBox>
           <register.registerBtn
-            onClick={() => {
-              if (!userName) {
-                
-                setUserNameError("red");
-              } else if (userNameError) {
-                setUserNameError("");
-                setUserNameErrorMsg("");
-              }
-
-              if (!password) {
-               
-                setPasswordError("red");
-              } else if (passwordError) {
-                setPasswordError("");
-                setPasswordErrorMsg("");
-              }
-
-              if (!title) {
-                
-                setTitleError("red");
-              } else if (titleError) {
-                setTitleError("");
-                setTitleErrorMsg("");
-              }
-
-              if (!content) {
-             
-                setContentError("red");
-              } else if (contentError) {
-                setContentError("");
-                setContentErrorMsg("");
-              }
-
-              if (!userName || !password || !title || !content) {
-                alert("입력하지 않은 칸이 있습니다.");
-              } else if (userName && password && title && content) {
-                alert("회원가입이 완료되었습니다.");
-              }
-            }}
+            onClick={onClickSubmit}
           >
             등록하기
           </register.registerBtn>
