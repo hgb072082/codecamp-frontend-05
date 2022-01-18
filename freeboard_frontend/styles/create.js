@@ -176,7 +176,7 @@ align-items:center;
 export const PicturePlusText=styled.div`
 width:14px;
 height:14px;
-color:#4F4F4F
+color:#4F4F4F;
 font-size:14px;
 text-align:center;
 `

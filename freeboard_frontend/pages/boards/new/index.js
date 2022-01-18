@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation, gql } from "@apollo/client";
-
-import * as register from "../../../styles/register";
+import { useRouter } from "next/router";
+import * as styles from "../../../styles/create";
 
 
 const CREATE_BOARD = gql`
@@ -37,27 +37,12 @@ export default function Home() {
   const [contentError, setContentError] = useState("");
   const [createBoard] = useMutation(CREATE_BOARD);
 
-
+const router= useRouter();
  
 
   const onClickSubmit= async ()=> {
 
-const result = await createBoard({
 
-variables: {
-createBoardInput:{
-writer: userName,
-password: password,
-title: title,
-contents:content
-
-
-}
-}
-
-
-
-})
 
 
     if (!userName) {
@@ -95,116 +80,138 @@ contents:content
     if (!userName || !password || !title || !content) {
       alert("입력하지 않은 칸이 있습니다.");
     } else if (userName && password && title && content) {
-      alert("회원가입이 완료되었습니다.");
+      try{
+        
+        const result = await createBoard({
+
+          variables: {
+          createBoardInput:{
+          writer: userName,
+          password:password,
+          title:title,
+          contents:content
+          
+          
+          }
+          }
+          
+          
+          
+          })
+        router.push(`/boards/${result.data.createBoard._id}`)
+      alert("게시물 등록이 완료되었습니다.");} catch(e) {console.log(e.massage)}
+     
     }
 
-console.log(result)
 
-  }
+
+  };
+
+  
   return (
     <>
-      <register.Wrapper>
-        <register.WrapperContainer>
-          <register.WrapperHeader>게시물 등록</register.WrapperHeader>
+      <styles.Wrapper>
+        <styles.WrapperContainer>
+          <styles.WrapperHeader>게시물 등록</styles.WrapperHeader>
 
-          <register.ClientContentBox>
-            <register.ClientBigBox>
-              <register.TitleText>작성자</register.TitleText>
-              <register.InputClientBox
+          <styles.ClientContentBox>
+            <styles.ClientBigBox>
+              <styles.TitleText>작성자</styles.TitleText>
+              <styles.InputClientBox
                 style={{ borderColor: userNameError }}
                 placeholder="이름을 적어주세요."
                 onChange={(e) => {
                   setUserName(e.target.value);
                 }}
-              ></register.InputClientBox>
+              ></styles.InputClientBox>
               
-            </register.ClientBigBox>
-            <register.ClientBigBox>
-              <register.TitleText>비밀번호</register.TitleText>
-              <register.InputClientBox
+            </styles.ClientBigBox>
+            <styles.ClientBigBox>
+              <styles.TitleText>비밀번호</styles.TitleText>
+              <styles.InputClientBox
                 style={{ borderColor: passwordError }}
                 type={"password"}
                 placeholder="비밀번호를 입력해주세요."
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
-              ></register.InputClientBox>
+              ></styles.InputClientBox>
               
-            </register.ClientBigBox>
-          </register.ClientContentBox>
-          <register.ContentBox>
-            <register.TitleText>제목</register.TitleText>
-            <register.InputTitleBox
+            </styles.ClientBigBox>
+          </styles.ClientContentBox>
+          <styles.ContentBox>
+            <styles.TitleText>제목</styles.TitleText>
+            <styles.InputTitleBox
               style={{ borderColor: titleError }}
               placeholder="제목을 작성해주세요."
               onChange={(e) => {
                 setTitle(e.target.value);
               }}
-            ></register.InputTitleBox>
+            ></styles.InputTitleBox>
             
-          </register.ContentBox>
-          <register.ContentBox>
-            <register.TitleText>내용</register.TitleText>
-            <register.InputContentBox
+          </styles.ContentBox>
+          <styles.ContentBox>
+            <styles.TitleText>내용</styles.TitleText>
+            <styles.InputContentBox
               style={{ borderColor: contentError }}
               placeholder="내용을 작성해주세요."
               onChange={(e) => {
                 setContent(e.target.value);
               }}
-            ></register.InputContentBox>
+            ></styles.InputContentBox>
             
-          </register.ContentBox>
-          <register.ContentBox>
-            <register.TitleText>주소</register.TitleText>
-            <register.AreaButtonBox>
-              <register.InputAreaNum placeholder="07250"></register.InputAreaNum>
-              <register.AreaNumSearchBtn>
+          </styles.ContentBox>
+          <styles.ContentBox>
+            <styles.TitleText>주소</styles.TitleText>
+            <styles.AreaButtonBox>
+              <styles.InputAreaNum placeholder="07250"></styles.InputAreaNum>
+              <styles.AreaNumSearchBtn>
                 우편번호 검색
-              </register.AreaNumSearchBtn>
-            </register.AreaButtonBox>
+              </styles.AreaNumSearchBtn>
+            </styles.AreaButtonBox>
             {[1, 2].map(() => {
               return (
                 <>
-                  <register.InputTitleBox></register.InputTitleBox>
+                  <styles.InputTitleBox></styles.InputTitleBox>
                 </>
               );
             })}
-          </register.ContentBox>
-          <register.ContentBox>
-            <register.TitleText>유튜브</register.TitleText>
-            <register.InputTitleBox placeholder="링크를 복사해주세요."></register.InputTitleBox>
-          </register.ContentBox>
-          <register.ContentBox>
-            <register.TitleText>사진 첨부</register.TitleText>
-            <register.UploadBtnBox>
+          </styles.ContentBox>
+          <styles.ContentBox>
+            <styles.TitleText>유튜브</styles.TitleText>
+            <styles.InputTitleBox placeholder="링크를 복사해주세요."></styles.InputTitleBox>
+          </styles.ContentBox>
+          <styles.ContentBox>
+            <styles.TitleText>사진 첨부</styles.TitleText>
+            <styles.UploadBtnBox>
               {[1, 2, 3].map(() => {
                 return (
-                  <register.PictureUploadBtn>
-                    <register.PicturePlusText>+</register.PicturePlusText>
-                    <register.PictureUploadText>
+                  <styles.PictureUploadBtn>
+                    <styles.PicturePlusText>+</styles.PicturePlusText>
+                    <styles.PictureUploadText>
                       Upload
-                    </register.PictureUploadText>
-                  </register.PictureUploadBtn>
+                    </styles.PictureUploadText>
+                  </styles.PictureUploadBtn>
                 );
               })}
-            </register.UploadBtnBox>
-          </register.ContentBox>
-          <register.ContentBox>
-            <register.TitleText>메인 설정</register.TitleText>
-            <register.SettingSelectBox>
-              <register.SettingSelect name={"mainSet"} type={"radio"} />
+            </styles.UploadBtnBox>
+          </styles.ContentBox>
+          <styles.ContentBox>
+            <styles.TitleText>메인 설정</styles.TitleText>
+            <styles.SettingSelectBox>
+              <styles.SettingSelect name={"mainSet"} type={"radio"} />
               유튜브
-              <register.SettingSelect name={"mainSet"} type={"radio"} />
+              <styles.SettingSelect name={"mainSet"} type={"radio"} />
               사진
-            </register.SettingSelectBox>
-          </register.ContentBox>
-          <register.registerBtn
+            </styles.SettingSelectBox>
+          </styles.ContentBox>
+          <styles.registerBtn
             onClick={onClickSubmit}
           >
             등록하기
-          </register.registerBtn>
-        </register.WrapperContainer>
-      </register.Wrapper>
+          </styles.registerBtn>
+        </styles.WrapperContainer>
+      </styles.Wrapper>
     </>
   );
 }
