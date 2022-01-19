@@ -206,6 +206,6 @@ margin-top:80px;
 width:179px;
 height:52px;
 text-align:center;
-background-color:#FFD600;
+background-color: ${(props) => props.isActive ? "yellow" : "none"};
 border:none;
 `;
