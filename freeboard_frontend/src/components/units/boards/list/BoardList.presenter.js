@@ -14,10 +14,10 @@ export default function BoardListUI(props) {
           return (
             <>
               <S.RowBox key={el._id}>
-                <S.ColumnNumber id={el.number}>{index+1}</S.ColumnNumber>
-                <S.ColumnTitle>{el.title}</S.ColumnTitle>
+                <S.ColumnNumber >{index+1}</S.ColumnNumber>
+                <S.ColumnTitle id={el.number} onClick={props.onClickMoveToBoardDetail} id={el._id}>{el.title}</S.ColumnTitle>
                 <S.ColumnWriter>{el.writer}</S.ColumnWriter>
-                <S.HeaderColumnDate>{el.createdAt}</S.HeaderColumnDate>
+                <S.HeaderColumnDate>{props.getMyDate(el.createdAt)}</S.HeaderColumnDate>
               </S.RowBox>
             </>
           );
