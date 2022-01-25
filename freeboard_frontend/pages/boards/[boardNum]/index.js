@@ -1,18 +1,9 @@
+import BoardDetail from "../../../src/components/units/boards/detail/BoardDetail.container";
 
-import BoardDetail from '../../../src/components/units/boards/detail/BoardDetail.container'
-
-
-export default function FetchPage(){
-    
-return(<>
-
-    <BoardDetail />
-
-</>
-
-
-
-)
-
-
+export default function FetchPage() {
+  return (
+    <>
+      <BoardDetail />
+    </>
+  );
 }
