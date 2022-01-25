@@ -8,7 +8,6 @@ import {
 } from "../../../../commons/types/generated/types";
 import { FETCH_BOARD_COMMENTS } from "../commentList/BoardCommentList.queries";
 import { CREATE_BOARD_COMMENT } from "./BoardCommentWrite.queries";
-
 export default function BoardCommentWrite() {
   const router = useRouter();
   const [rating, setRating] = useState(3);

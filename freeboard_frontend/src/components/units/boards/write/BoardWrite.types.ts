@@ -20,4 +20,12 @@ export interface IBoardWriteProps {
   content: string;
   onClickUpdate: () => void;
   onChangeYoutubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;
+  isAddressModalOn: boolean;
+  setIsAddressModalOn: (boolean) => void;
+  onClickIsAddressModal: () => void;
+  address: string;
+  zonecode: string;
+  onCompleteDaumPostcode: (any) => void;
+  onChangeDetailAddress: (event: ChangeEvent<HTMLInputElement>) => void;
+  detailAddress: string;
 }

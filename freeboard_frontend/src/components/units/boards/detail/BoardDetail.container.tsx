@@ -1,10 +1,18 @@
 import { useRouter } from "next/router";
 import { useMutation, useQuery } from "@apollo/client";
-import { DELETE_BOARD, FETCH_BOARD, UPDATE_BOARD } from "./BoardDetail.queries";
+import { useState } from "react";
+import {
+  DELETE_BOARD,
+  FETCH_BOARD,
+  LIKE_BOARD,
+  DISLIKE_BOARD,
+} from "./BoardDetail.queries";
 import BoardDetailUI from "./BoardDetail.presenter";
 export default function BoardDetail() {
+  const [dislikeBoard] = useMutation(DISLIKE_BOARD);
+  const [likeBoard] = useMutation(LIKE_BOARD);
   const [deleteBoard] = useMutation(DELETE_BOARD);
-  const [updateBoard] = useMutation(UPDATE_BOARD);
+  const [isAddressFetchModalOn, setIsAddressFetchModalOn] = useState(false);
   const onClickDelete = async () => {
     try {
       await deleteBoard({
@@ -26,18 +34,20 @@ export default function BoardDetail() {
       boardId: router.query.boardNum,
     },
   });
-  console.log(data);
 
   async function onClickLikeUpdate() {
     try {
-      await updateBoard({
+      await likeBoard({
         variables: {
           boardId: router.query.boardNum,
-
-          likeCount: data.fetchBoard.likeCount + 1,
         },
+        refetchQueries: [
+          {
+            query: FETCH_BOARD,
+            variables: { boardId: router.query.boardNum },
+          },
+        ],
       });
-      alert("수정이 완료되었습니다.");
     } catch (error) {
       alert(error.message);
     }
@@ -45,19 +55,24 @@ export default function BoardDetail() {
 
   async function onClickDisLikeUpdate() {
     try {
-      await updateBoard({
+      await dislikeBoard({
         variables: {
           boardId: router.query.boardNum,
-
-          dislikeCount: data.fetchBoard.dislikeCount + 1,
         },
+        refetchQueries: [
+          {
+            query: FETCH_BOARD,
+            variables: { boardId: router.query.boardNum },
+          },
+        ],
       });
-      alert("수정이 완료되었습니다.");
     } catch (error) {
       alert(error.message);
     }
   }
-
+  const onClickGps = () => {
+    setIsAddressFetchModalOn((prev) => !prev);
+  };
   const onClickMoveToList = () => {
     router.push("/boards");
   };
@@ -74,6 +89,9 @@ export default function BoardDetail() {
         onClickMoveToEdit={onClickMoveToEdit}
         onClickLikeUpdate={onClickLikeUpdate}
         onClickDisLikeUpdate={onClickDisLikeUpdate}
+        setIsAddressFetchModalOn={setIsAddressFetchModalOn}
+        isAddressFetchModalOn={isAddressFetchModalOn}
+        onClickGps={onClickGps}
       />
     </>
   );

@@ -16,23 +16,18 @@ export const Wrapper = styled.div`
 
 export const Header = styled.div`
   width: 100%;
-  height: 80px;
+  height: 100px;
   display: flex;
   flex-direction: row;
-  border: 1px solid #bdbdbd;
+  border-bottom: 1px solid #bdbdbd;
   justify-content: flex-start;
-`;
-
-export const HeaderProfileImg = styled.img`
-  width: 46.67px;
-  height: 46.67px;
-  background-color: red;
 `;
 
 export const HeaderTextBox = styled.div`
   height: 60px;
   display: flex;
   flex-direction: column;
+  margin-left: 20px;
 `;
 
 export const HeaderNameText = styled.div`
@@ -52,11 +47,6 @@ export const HeaderDateText = styled.div`
 export const HeaderYellowImgBox = styled.div`
   width: 86.67px;
   height: 13.33px;
-`;
-
-export const HeaderYellowImg = styled.img`
-  width: 32px;
-  height: 32px;
 `;
 
 export const BoardTitle = styled.div`
@@ -88,6 +78,8 @@ export const GoodBadBox = styled.div`
   width: 120px;
   padding-bottom: 80px;
   padding-top: 160px;
+  display: flex;
+  flex-direction: row;
 `;
 
 export const GoodBadImg = styled.img`

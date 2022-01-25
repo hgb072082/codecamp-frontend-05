@@ -6,4 +6,7 @@ export interface IBoardDetailUIProps {
   onClickMoveToEdit: (event: React.MouseEvent) => void;
   onClickLikeUpdate: () => void;
   onClickDisLikeUpdate: () => void;
+  setIsAddressFetchModalOn: (boolean) => void;
+  isAddressFetchModalOn: boolean;
+  onClickGps: () => void;
 }

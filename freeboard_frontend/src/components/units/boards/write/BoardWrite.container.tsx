@@ -19,6 +19,24 @@ export default function BoardWrite(props) {
 
   const [updateBoard] = useMutation(UPDATE_BOARD);
   const [youtubeUrl, setYoutubeUrl] = useState("");
+  const [isAddressModalOn, setIsAddressModalOn] = useState(false);
+
+  const [address, setAddress] = useState("");
+  const [detailAddress, setDetailAddress] = useState("");
+  const [zonecode, setZonecode] = useState("");
+  const onCompleteDaumPostcode = (data: any) => {
+    setAddress(data.address);
+    setZonecode(data.zonecode);
+    onClickIsAddressModal();
+  };
+
+  const onChangeDetailAddress = (event: any) => {
+    setDetailAddress(event.target.value);
+  };
+
+  const onClickIsAddressModal = () => {
+    setIsAddressModalOn((prev) => !prev);
+  };
   const onChangeWriter = (e) => {
     setUserName(e.target.value);
     if (e.target.value && title && password && content) {
@@ -96,11 +114,17 @@ export default function BoardWrite(props) {
               title: title,
               contents: content,
               youtubeUrl: youtubeUrl,
+              boardAddress: {
+                address: address,
+                addressDetail: detailAddress,
+                zipcode: zonecode,
+              },
             },
           },
         });
         router.push(`/boards/${result.data.createBoard._id}`);
         alert("게시물 등록이 완료되었습니다.");
+        console.log(props.data.createBoard);
       } catch (e) {
         console.log(e.massage);
       }
@@ -123,12 +147,14 @@ export default function BoardWrite(props) {
       youtubeUrl?: string;
     }
 
-    const myUpdateBoardInput: IMyUpdateBoardInput = { title };
+    const myUpdateBoardInput: IMyUpdateBoardInput = {};
+
     if (title) myUpdateBoardInput.title = title;
     if (content) {
       myUpdateBoardInput.contents = content;
     }
     if (youtubeUrl) myUpdateBoardInput.youtubeUrl = youtubeUrl;
+
     try {
       await updateBoard({
         variables: {
@@ -165,6 +191,14 @@ export default function BoardWrite(props) {
       content={content}
       title={title}
       onChangeYoutubeUrl={onChangeYoutubeUrl}
+      isAddressModalOn={isAddressModalOn}
+      setIsAddressModalOn={setIsAddressModalOn}
+      onClickIsAddressModal={onClickIsAddressModal}
+      address={address}
+      zonecode={zonecode}
+      onCompleteDaumPostcode={onCompleteDaumPostcode}
+      onChangeDetailAddress={onChangeDetailAddress}
+      detailAddress={detailAddress}
     />
   );
 }

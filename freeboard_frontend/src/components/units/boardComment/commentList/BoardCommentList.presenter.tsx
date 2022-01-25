@@ -1,6 +1,8 @@
 import * as S from "./BoardCommentList.styles";
 import "antd/dist/antd.css";
 import { Rate } from "antd";
+import { getMyDate } from "../../../commons/libraries/utils";
+
 export default function BoardCommentListUI(props) {
   return (
     <>
@@ -14,7 +16,7 @@ export default function BoardCommentListUI(props) {
               </S.NameStarBox>
 
               <S.Content>{e?.contents}</S.Content>
-              <S.Date>{e?.createdAt}</S.Date>
+              <S.Date>{getMyDate(e?.createdAt)}</S.Date>
               <Rate value={e?.rating} />
             </S.MainContentBox>
             <S.ReviseDelete>

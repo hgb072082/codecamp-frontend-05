@@ -1,5 +1,9 @@
+import { Modal } from "antd";
 import { IBoardWriteProps } from "./BoardWrite.types";
 import * as styles from "./BoardWrite.styles";
+
+import DaumPostcode from "react-daum-postcode";
+
 export default function BoardWriteUI(props: IBoardWriteProps) {
   return (
     <>
@@ -43,7 +47,7 @@ export default function BoardWriteUI(props: IBoardWriteProps) {
           <styles.ContentBox>
             <styles.TitleText>내용</styles.TitleText>
             <styles.InputContentBox
-              defaultValue={props.data?.fetchBoard.content}
+              defaultValue={props.data?.fetchBoard.contents}
               style={{ borderColor: props.contentError }}
               placeholder="내용을 작성해주세요."
               onChange={props.onChangeContent}
@@ -52,16 +56,43 @@ export default function BoardWriteUI(props: IBoardWriteProps) {
           <styles.ContentBox>
             <styles.TitleText>주소</styles.TitleText>
             <styles.AreaButtonBox>
-              <styles.InputAreaNum placeholder="07250"></styles.InputAreaNum>
-              <styles.AreaNumSearchBtn>우편번호 검색</styles.AreaNumSearchBtn>
+              <styles.InputAreaNum
+                placeholder="07250"
+                defaultValue={props.data?.fetchBoard.boardAddress.zipcode}
+                value={
+                  props.zonecode
+                    ? props.zonecode
+                    : props.data?.fetchBoard.boardAddress.zipcode
+                }
+              ></styles.InputAreaNum>
+              <styles.AreaNumSearchBtn onClick={props.onClickIsAddressModal}>
+                우편번호 검색
+              </styles.AreaNumSearchBtn>
+              {props.isAddressModalOn && (
+                <Modal
+                  title="Basic Modal"
+                  visible={true}
+                  onOk={props.onClickIsAddressModal}
+                  onCancel={props.onClickIsAddressModal}
+                >
+                  <DaumPostcode onComplete={props.onCompleteDaumPostcode} />
+                </Modal>
+              )}
             </styles.AreaButtonBox>
-            {[1, 2].map(() => {
-              return (
-                <>
-                  <styles.InputTitleBox></styles.InputTitleBox>
-                </>
-              );
-            })}
+
+            <styles.InputTitleBox
+              defaultValue={props.data?.fetchBoard.boardAddress.address}
+              value={
+                props.address
+                  ? props.address
+                  : props.data?.fetchBoard.boardAddress.address
+              }
+            ></styles.InputTitleBox>
+            <styles.InputTitleBox
+              onChange={props.onChangeDetailAddress}
+              placeholder="상세주소"
+              defaultValue={props.data?.fetchBoard.boardAddress.addressDetail}
+            ></styles.InputTitleBox>
           </styles.ContentBox>
           <styles.ContentBox>
             <styles.TitleText>유튜브</styles.TitleText>
