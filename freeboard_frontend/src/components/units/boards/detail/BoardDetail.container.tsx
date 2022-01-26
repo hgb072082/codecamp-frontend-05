@@ -28,7 +28,6 @@ export default function BoardDetail() {
     }
   };
   const router = useRouter();
-
   const { data } = useQuery(FETCH_BOARD, {
     variables: {
       boardId: router.query.boardNum,

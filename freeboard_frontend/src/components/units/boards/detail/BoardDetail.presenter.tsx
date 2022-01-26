@@ -40,6 +40,7 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
               onCancel={props.onClickGps}
             >
               {props.data?.fetchBoard?.boardAddress?.address}
+              {props.data?.fetchBoard?.boardAddress?.addressDetail}
             </Modal>
           )}
         </styles.Header>

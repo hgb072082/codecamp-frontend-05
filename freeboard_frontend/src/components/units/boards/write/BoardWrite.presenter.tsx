@@ -58,7 +58,6 @@ export default function BoardWriteUI(props: IBoardWriteProps) {
             <styles.AreaButtonBox>
               <styles.InputAreaNum
                 placeholder="07250"
-                defaultValue={props.data?.fetchBoard.boardAddress.zipcode}
                 value={
                   props.zonecode
                     ? props.zonecode
@@ -81,7 +80,6 @@ export default function BoardWriteUI(props: IBoardWriteProps) {
             </styles.AreaButtonBox>
 
             <styles.InputTitleBox
-              defaultValue={props.data?.fetchBoard.boardAddress.address}
               value={
                 props.address
                   ? props.address

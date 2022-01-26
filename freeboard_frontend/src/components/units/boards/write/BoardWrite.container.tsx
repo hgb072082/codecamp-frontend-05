@@ -132,8 +132,8 @@ export default function BoardWrite(props) {
   };
 
   async function onClickUpdate() {
-    if (!title && !content) {
-      alert("둘중 하나는 입력해야합니다.");
+    if (!title && !content && !address && !detailAddress) {
+      alert("셋중 하나는 입력해야합니다.");
       return;
     }
     if (!password) {
@@ -145,6 +145,7 @@ export default function BoardWrite(props) {
       title?: string;
       contents?: string;
       youtubeUrl?: string;
+      boardAddress?: any;
     }
 
     const myUpdateBoardInput: IMyUpdateBoardInput = {};
@@ -154,7 +155,13 @@ export default function BoardWrite(props) {
       myUpdateBoardInput.contents = content;
     }
     if (youtubeUrl) myUpdateBoardInput.youtubeUrl = youtubeUrl;
-
+    if (zonecode || address || detailAddress) {
+      myUpdateBoardInput.boardAddress = {};
+      if (zonecode) myUpdateBoardInput.boardAddress.zipcode = zonecode;
+      if (address) myUpdateBoardInput.boardAddress.address = address;
+      if (detailAddress)
+        myUpdateBoardInput.boardAddress.addressDetail = detailAddress;
+    }
     try {
       await updateBoard({
         variables: {
