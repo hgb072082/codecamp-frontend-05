@@ -6,14 +6,14 @@ import styled from "@emotion/styled";
 const BodyWrapper = styled.div`
   display: flex;
 `;
-
+const LayoutBody = styled.div``;
 export default function Layout(props) {
   return (
     <>
       <LayoutHeader />
-      <LayoutBanner />
+      <LayoutBanner  />
       <LayoutNavigation />
-      <BodyWrapper></BodyWrapper>
+      <BodyWrapper><LayoutBody> {props.children} </LayoutBody> </BodyWrapper>
       <LayoutFooter />
     </>
   );

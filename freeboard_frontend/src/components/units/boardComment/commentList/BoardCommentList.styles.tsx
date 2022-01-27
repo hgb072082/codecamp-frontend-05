@@ -6,6 +6,10 @@ export const Wrapper = styled.div`
   flex-direction: column;
   margin-left: 100px; ;
 `;
+export const PasswordInput = styled.input`
+  width: 100%;
+  margin-top: 10px;
+`;
 
 export const CommentContainer = styled.div`
   width: 100%;

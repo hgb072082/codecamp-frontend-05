@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import BoardWriteUI from "./BoardWrite.presenter";
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
-
+import { Modal } from "antd";
 import { useRouter } from "next/router";
 export default function BoardWrite(props) {
   const [userName, setUserName] = useState("");
@@ -123,7 +123,7 @@ export default function BoardWrite(props) {
           },
         });
         router.push(`/boards/${result.data.createBoard._id}`);
-        alert("게시물 등록이 완료되었습니다.");
+        Modal.success({ content: "등록이 완료되었습니다." });
         console.log(props.data.createBoard);
       } catch (e) {
         console.log(e.massage);
@@ -133,11 +133,11 @@ export default function BoardWrite(props) {
 
   async function onClickUpdate() {
     if (!title && !content && !address && !detailAddress) {
-      alert("셋중 하나는 입력해야합니다.");
+      Modal.error({ content: "셋중 하나는 입력해야합니다." });
       return;
     }
     if (!password) {
-      alert("비밀번호 입력해주세요");
+      Modal.error({ content: "비밀번호를 입력해주세요." });
       return;
     }
 
@@ -170,10 +170,10 @@ export default function BoardWrite(props) {
           updateBoardInput: myUpdateBoardInput,
         },
       });
-      alert("수정이 완료되었습니다.");
+      Modal.success({ content: "수정이 완료되었습니다." });
       router.push(`/boards/${router.query.boardNum}`);
     } catch (error) {
-      alert(error.message);
+      Modal.error({ content: error.message });
     }
   }
 

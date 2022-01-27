@@ -8,6 +8,8 @@ import {
   DISLIKE_BOARD,
 } from "./BoardDetail.queries";
 import BoardDetailUI from "./BoardDetail.presenter";
+import { Modal } from "antd";
+
 export default function BoardDetail() {
   const [dislikeBoard] = useMutation(DISLIKE_BOARD);
   const [likeBoard] = useMutation(LIKE_BOARD);
@@ -20,7 +22,7 @@ export default function BoardDetail() {
           boardId: String(router.query.boardNum),
         },
       });
-      alert("삭제가 완료되었습니다!");
+      Modal.success({ content: "수정이 완료되었습니다." });
 
       router.push(`/boards/list`);
     } catch (e) {
@@ -66,7 +68,7 @@ export default function BoardDetail() {
         ],
       });
     } catch (error) {
-      alert(error.message);
+      Modal.error({ content: error.message });;
     }
   }
   const onClickGps = () => {
