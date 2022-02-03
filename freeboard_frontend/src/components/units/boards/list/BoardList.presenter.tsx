@@ -1,3 +1,4 @@
+
 import * as S from "./BoardList.styles";
 export default function BoardListUI(props) {
   return (
@@ -12,21 +13,21 @@ export default function BoardListUI(props) {
 
         {props.data?.fetchBoards.map((el, index) => {
           return (
-            <>
-              <S.RowBox key={el._id}>
-                <S.ColumnNumber>{index + 1}</S.ColumnNumber>
-                <S.ColumnTitle
-                  onClick={props.onClickMoveToBoardDetail}
-                  id={el._id}
-                >
-                  {el.title}
-                </S.ColumnTitle>
-                <S.ColumnWriter>{el.writer}</S.ColumnWriter>
-                <S.HeaderColumnDate>
-                  {props.getMyDate(el.createdAt)}
-                </S.HeaderColumnDate>
-              </S.RowBox>
-            </>
+            <S.RowBox key={el._id}>
+            
+            <S.ColumnNumber>{index + 1}</S.ColumnNumber>
+            <S.ColumnTitle
+              onClick={props.onClickMoveToBoardDetail}
+              id={el._id}
+            >
+              {el.title}
+            </S.ColumnTitle>
+            <S.ColumnWriter>{el.writer}</S.ColumnWriter>
+            <S.HeaderColumnDate>
+              {props.getMyDate(el.createdAt)}
+            </S.HeaderColumnDate>
+            
+          </S.RowBox>
           );
         })}
       </S.Wrapper>

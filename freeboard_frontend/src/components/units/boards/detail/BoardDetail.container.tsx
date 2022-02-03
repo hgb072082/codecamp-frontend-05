@@ -22,9 +22,9 @@ export default function BoardDetail() {
           boardId: String(router.query.boardNum),
         },
       });
-      Modal.success({ content: "수정이 완료되었습니다." });
+      Modal.success({ content: "삭제가 완료되었습니다." });
 
-      router.push(`/boards/list`);
+      router.push(`/boards/`);
     } catch (e) {
       console.log(e.massage);
     }

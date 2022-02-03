@@ -35,7 +35,8 @@ setDeleteIsOpen((prev)=>(!prev))
 
 }
 
-const onChangeBtn = () => {
+
+const onClickDeleteBtn = () => {
 
 setSelectedId(event.target.id)
 setDeleteIsOpen((prev)=>(!prev))
@@ -49,11 +50,11 @@ setPassword(event.target.value)
 
   async function onClickDelete(event) {
     setDeleteIsOpen(true);
-    setSelectedId(event.target.id)
+    
     console.log(selectedId)
 
     try {
-      console.log(event.target.id);
+   
       await deleteBoardComment({
         variables: {
           password: password,
@@ -67,7 +68,8 @@ setPassword(event.target.value)
         ],
       });
     } catch (error) {
-      Modal.error((error.message));
+      Modal.error((error.message))
+      console.log("요기가문제야")
     }
 
     onChangeIsOpen();
@@ -77,7 +79,7 @@ setPassword(event.target.value)
   
   return (
     <>
-      <BoardCommentListUI data={data} onClickDelete={onClickDelete} onChangeIsOpen={onChangeIsOpen} onChangePassword={onChangePassword} deleteIsOpen={deleteIsOpen} onChangeBtn={onChangeBtn}/>
+      <BoardCommentListUI data={data} onClickDelete={onClickDelete} onChangeIsOpen={onChangeIsOpen} onChangePassword={onChangePassword} deleteIsOpen={deleteIsOpen} onClickDeleteBtn={onClickDeleteBtn}/>
     </>
   );
 }
