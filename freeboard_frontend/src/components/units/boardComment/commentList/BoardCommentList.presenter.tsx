@@ -2,6 +2,8 @@ import * as S from "./BoardCommentList.styles";
 import "antd/dist/antd.css";
 import { Modal } from "antd";
 import BoardCommentListElement from "./BoardCommentListElement";
+import InfiniteScroll from 'react-infinite-scroller';
+
 export default function BoardCommentListUI(props) {
   return (
     <>
@@ -23,8 +25,14 @@ export default function BoardCommentListUI(props) {
 
                 </Modal>
               )}
-        {props.data?.fetchBoardComments.map((e) => (
-          <BoardCommentListElement id={e._id} e={e} key={e.id}  onClickDeleteBtn={props.onClickDeleteBtn}/>
+        {props.data?.fetchBoardComments.map((e,i) => (
+          <InfiniteScroll
+          key={i}
+          pageStart={0}
+          loadMore={props.onLoadMore}  // 스크롤 내릴 시 실행되는 함수
+          hasMore={true}>
+          <BoardCommentListElement id={e._id} e={e} key={e.id}  onClickDeleteBtn={props.onClickDeleteBtn} fetchMore={props.fetchMore} data={props.data}/>
+          </InfiniteScroll>
         
         ))
         

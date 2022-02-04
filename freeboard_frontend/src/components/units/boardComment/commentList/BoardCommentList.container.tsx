@@ -16,7 +16,7 @@ import {
 import { useState } from "react";
 export default function BoardCommentList() {
   const router = useRouter();
-  const { data } = useQuery<
+  const { data,fetchMore } = useQuery<
     Pick<IQuery, "fetchBoardComments">,
     IQueryFetchBoardCommentsArgs
   >(FETCH_BOARD_COMMENTS, {
@@ -35,6 +35,14 @@ setDeleteIsOpen((prev)=>(!prev))
 
 }
 
+const onLoadMore=() => {
+  if (!data) return;
+    fetchMore({variables: {page : Math.ceil(data.fetchBoardComments.length/10)+1},
+    updateQuery:(prev,{fetchMoreResult})=>{
+  if(!fetchMoreResult.fetchBoardComments){return {fetchBoardComments:[...prev.fetchBoardComments]}};
+      return {fetchBoardComments : [...prev.fetchMore,...fetchMoreResult.fetchBoardComments]}
+    }})
+  }
 
 const onClickDeleteBtn = () => {
 
@@ -79,7 +87,7 @@ setPassword(event.target.value)
   
   return (
     <>
-      <BoardCommentListUI data={data} onClickDelete={onClickDelete} onChangeIsOpen={onChangeIsOpen} onChangePassword={onChangePassword} deleteIsOpen={deleteIsOpen} onClickDeleteBtn={onClickDeleteBtn}/>
+      <BoardCommentListUI data={data} onClickDelete={onClickDelete} onChangeIsOpen={onChangeIsOpen} onChangePassword={onChangePassword} deleteIsOpen={deleteIsOpen} onClickDeleteBtn={onClickDeleteBtn} fetchMore={fetchMore} />
     </>
   );
 }

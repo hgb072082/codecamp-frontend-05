@@ -41,6 +41,9 @@ export default function BoardCommentListElement(props) {
         
         </>  :
 
+ // hasmore가 true일때에
+
+
       <S.CommentContainer>
         <S.Icon></S.Icon>
         <S.MainContentBox>

@@ -80,7 +80,7 @@ interface IUpdateBoardCommentInput {
 contents?:string;
 rating?:number;
 
-}
+} 
 
 const updateBoardCommentInput: IUpdateBoardCommentInput ={};
 if(contents){updateBoardCommentInput.contents = contents}
