@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { Modal } from "antd";
 
+
 import {
   IMutation,
   IMutationDeleteBoardCommentArgs,
@@ -40,7 +41,9 @@ const onLoadMore=() => {
     fetchMore({variables: {page : Math.ceil(data.fetchBoardComments.length/10)+1},
     updateQuery:(prev,{fetchMoreResult})=>{
   if(!fetchMoreResult.fetchBoardComments){return {fetchBoardComments:[...prev.fetchBoardComments]}};
-      return {fetchBoardComments : [...prev.fetchMore,...fetchMoreResult.fetchBoardComments]}
+  console.log(prev.fetchBoardComments)
+  console.log(fetchMoreResult.fetchBoardComments)
+      return {fetchBoardComments : [...prev.fetchBoardComments, ...fetchMoreResult.fetchBoardComments]}
     }})
   }
 
@@ -56,7 +59,7 @@ setPassword(event.target.value)
 
 }
 
-  async function onClickDelete(event) {
+  async function onClickDelete() {
     setDeleteIsOpen(true);
     
     console.log(selectedId)
@@ -87,7 +90,7 @@ setPassword(event.target.value)
   
   return (
     <>
-      <BoardCommentListUI data={data} onClickDelete={onClickDelete} onChangeIsOpen={onChangeIsOpen} onChangePassword={onChangePassword} deleteIsOpen={deleteIsOpen} onClickDeleteBtn={onClickDeleteBtn} fetchMore={fetchMore} />
+      <BoardCommentListUI data={data} onClickDelete={onClickDelete} onChangeIsOpen={onChangeIsOpen} onChangePassword={onChangePassword} deleteIsOpen={deleteIsOpen} onClickDeleteBtn={onClickDeleteBtn} fetchMore={fetchMore} onLoadMore={onLoadMore} />
     </>
   );
 }
