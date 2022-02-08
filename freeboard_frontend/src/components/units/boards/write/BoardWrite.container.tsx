@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useState} from "react";
 import { useMutation } from "@apollo/client";
 import BoardWriteUI from "./BoardWrite.presenter";
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
 export default function BoardWrite(props) {
+
+  
+  const [images,setImages]=useState([])
+
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
@@ -78,6 +82,7 @@ export default function BoardWrite(props) {
   };
 
   const onClickSubmit = async () => {
+    console.log(images)
     if (!userName) {
       setUserNameError("red");
     } else if (userNameError) {
@@ -114,10 +119,13 @@ export default function BoardWrite(props) {
               title: title,
               contents: content,
               youtubeUrl: youtubeUrl,
+              images,
+              
               boardAddress: {
                 address: address,
                 addressDetail: detailAddress,
                 zipcode: zonecode,
+              
               },
             },
           },
@@ -132,6 +140,7 @@ export default function BoardWrite(props) {
   };
 
   async function onClickUpdate() {
+   
     if (!title && !content && !address && !detailAddress) {
       Modal.error({ content: "셋중 하나는 입력해야합니다." });
       return;
@@ -206,6 +215,8 @@ export default function BoardWrite(props) {
       onCompleteDaumPostcode={onCompleteDaumPostcode}
       onChangeDetailAddress={onChangeDetailAddress}
       detailAddress={detailAddress}
+    images={images}
+    setImages={setImages}
     />
   );
 }

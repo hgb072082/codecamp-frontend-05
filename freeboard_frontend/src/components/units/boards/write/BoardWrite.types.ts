@@ -28,4 +28,6 @@ export interface IBoardWriteProps {
   onCompleteDaumPostcode: (any) => void;
   onChangeDetailAddress: (event: ChangeEvent<HTMLInputElement>) => void;
   detailAddress: string;
+  images: Array<string>;
+  setImages: (Array) => void;
 }

@@ -3,6 +3,7 @@ import { IBoardWriteProps } from "./BoardWrite.types";
 import * as styles from "./BoardWrite.styles";
 
 import DaumPostcode from "react-daum-postcode";
+import FileUpload from "./BoardWrite.imageUpload";
 
 export default function BoardWriteUI(props: IBoardWriteProps) {
   return (
@@ -103,13 +104,10 @@ export default function BoardWriteUI(props: IBoardWriteProps) {
           <styles.ContentBox>
             <styles.TitleText>사진 첨부</styles.TitleText>
             <styles.UploadBtnBox>
-              {[1, 2, 3].map((e) => {
-                return (
-                  <styles.PictureUploadBtn key={e}>
-                    <styles.PicturePlusText>+</styles.PicturePlusText>
-                    <styles.PictureUploadText>Upload</styles.PictureUploadText>
-                  </styles.PictureUploadBtn>
-                );
+              {[1, 2, 3].map((e,idx) => {
+                return (<>
+      <FileUpload e={e} idx={idx} images={props.images} setImages={props.setImages} />
+                </>);
               })}
             </styles.UploadBtnBox>
           </styles.ContentBox>

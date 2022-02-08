@@ -52,6 +52,12 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
         <styles.BoardVideo>
           <ReactPlayer url={props.data?.fetchBoard.youtubeUrl}></ReactPlayer>
         </styles.BoardVideo>
+            
+       { props.data?.fetchBoard.images.map((el) =>{
+
+              return (<img style={{width:"80px",height:"80px"}} src={`https://storage.googleapis.com/${el}`}></img>)}
+       )
+       }
 
         <styles.GoodBadBox>
           <LikeOutlined
