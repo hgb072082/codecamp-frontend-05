@@ -1,9 +1,12 @@
-
 import * as S from "./BoardList.styles";
 export default function BoardListUI(props) {
   return (
     <>
       <S.Wrapper>
+        <S.SearchBox>
+          <S.SearchInput onChange={props.onChangeSearch} />
+          <S.SearchBtn onClick={props.onClickSearch}>검색</S.SearchBtn>
+        </S.SearchBox>
         <S.RowBox>
           <S.HeaderColumnNumber>번호</S.HeaderColumnNumber>
           <S.HeaderColumnTitle>제목</S.HeaderColumnTitle>
@@ -14,20 +17,18 @@ export default function BoardListUI(props) {
         {props.data?.fetchBoards.map((el, index) => {
           return (
             <S.RowBox key={el._id}>
-            
-            <S.ColumnNumber>{index + 1}</S.ColumnNumber>
-            <S.ColumnTitle
-              onClick={props.onClickMoveToBoardDetail}
-              id={el._id}
-            >
-              {el.title}
-            </S.ColumnTitle>
-            <S.ColumnWriter>{el.writer}</S.ColumnWriter>
-            <S.HeaderColumnDate>
-              {props.getMyDate(el.createdAt)}
-            </S.HeaderColumnDate>
-            
-          </S.RowBox>
+              <S.ColumnNumber>{index + 1}</S.ColumnNumber>
+              <S.ColumnTitle
+                onClick={props.onClickMoveToBoardDetail}
+                id={el._id}
+              >
+                {el.title}
+              </S.ColumnTitle>
+              <S.ColumnWriter>{el.writer}</S.ColumnWriter>
+              <S.HeaderColumnDate>
+                {props.getMyDate(el.createdAt)}
+              </S.HeaderColumnDate>
+            </S.RowBox>
           );
         })}
       </S.Wrapper>

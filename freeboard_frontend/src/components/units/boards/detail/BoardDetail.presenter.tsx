@@ -4,6 +4,7 @@ import * as styles from "./BoardDetail.styles";
 import { IBoardDetailUIProps } from "./BoardDetail.types";
 import ReactPlayer from "react-player";
 import { getMyDate } from "../../../commons/libraries/utils";
+import { v4 as uuidv4 } from "uuid";
 import { Modal, Avatar } from "antd";
 import {
   LinkOutlined,
@@ -52,12 +53,18 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
         <styles.BoardVideo>
           <ReactPlayer url={props.data?.fetchBoard.youtubeUrl}></ReactPlayer>
         </styles.BoardVideo>
-            
-       { props.data?.fetchBoard.images.map((el) =>{
 
-              return (<img style={{width:"80px",height:"80px"}} src={`https://storage.googleapis.com/${el}`}></img>)}
-       )
-       }
+        {props.data?.fetchBoard.images.map((el) =>
+          el ? (
+            <img
+              key={uuidv4()}
+              style={{ width: "80px", height: "80px" }}
+              src={`https://storage.googleapis.com/${el}`}
+            ></img>
+          ) : (
+            <></>
+          )
+        )}
 
         <styles.GoodBadBox>
           <LikeOutlined

@@ -1,16 +1,11 @@
 import { useState } from "react";
 
-
 export default function Pagination(props) {
-
-  const [isSelected,setIsSelected]= useState(1);
-
-
+  const [isSelected, setIsSelected] = useState(1);
 
   const onClickPage = (event) => {
-    
-    props.refetch({ page: Number(event.target.id) });
-    setIsSelected(Number(event.target.id))
+    props.refetch({ page: Number(event.target.id), search: props.keyword });
+    setIsSelected(Number(event.target.id));
   };
 
   const onClickPrevPage = () => {
@@ -35,8 +30,11 @@ export default function Pagination(props) {
               key={index + props.startPage}
               onClick={onClickPage}
               id={String(index + props.startPage)}
-
-             style={(index+props.startPage===isSelected) ? {color:"red"} : {color:"black"}}
+              style={
+                index + props.startPage === isSelected
+                  ? { color: "red" }
+                  : { color: "black" }
+              }
             >
               {` ${index + props.startPage} `}
             </span>
