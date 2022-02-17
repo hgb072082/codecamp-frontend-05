@@ -20,7 +20,8 @@
     "**/*.ts",
     "**/*.tsx",
     "src/components/units/products/write/ProductWrite.container.js",
-    "src/components/commons/hocs/withAuth.js"
+    "src/components/commons/hocs/withAuth.js",
+    "src/components/commons/hooks/useAuth.js"
   ],
   "exclude": ["node_modules"]
 }

@@ -1,12 +1,13 @@
-import { withAuth } from "../../../src/components/commons/hocs/withAuth";
+import { useAuth } from "../../../src/components/commons/hooks/useAuth";
 import ProductWrite from "../../../src/components/units/products/write/ProductWrite.container";
-const ProductPage = () => {
-  console.log("페이지는 실행됨");
+export default function ProductPage() {
+  const { isLoading } = useAuth();
+  if (isLoading) {
+    return <></>;
+  }
   return (
     <>
       <ProductWrite />
     </>
   );
-};
-
-export default withAuth(ProductPage);
+}
