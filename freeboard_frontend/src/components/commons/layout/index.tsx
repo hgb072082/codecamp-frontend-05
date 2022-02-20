@@ -10,11 +10,13 @@ const LayoutBody = styled.div``;
 export default function Layout(props) {
   return (
     <>
-      <LayoutHeader />
+      {/* <LayoutHeader />
       <LayoutBanner  />
-      <LayoutNavigation />
-      <BodyWrapper><LayoutBody> {props.children} </LayoutBody> </BodyWrapper>
-      <LayoutFooter />
+      <LayoutNavigation /> */}
+      <BodyWrapper>
+        <LayoutBody> {props.children} </LayoutBody>{" "}
+      </BodyWrapper>
+      {/* <LayoutFooter /> */}
     </>
   );
 }
