@@ -1,11 +1,9 @@
-import * as S from "./BoardCommentList.styles";
-import { getMyDate } from "../../../commons/libraries/utils";
+import * as S from "./ProductCommentList.styles";
 import { useState } from "react";
 
-import BoardCommentWrite from "../comment/BoardCommentWrite.container";
-import { Rate } from "antd";
+import ProductCommentWrite from "../comment/ProductCommentWrite.container";
 
-export default function BoardCommentListElement(props) {
+export default function ProductCommentListElement(props) {
   const [isEditing, setIsEditing] = useState(false);
   const [selectedId, setSelectedId] = useState("");
   const onClickReviseBtn = (event) => {
@@ -18,7 +16,7 @@ export default function BoardCommentListElement(props) {
     <>
       {isEditing ? (
         <>
-          <BoardCommentWrite
+          <ProductCommentWrite
             e={props.e}
             isEditing={isEditing}
             selectedId={selectedId}
@@ -32,16 +30,18 @@ export default function BoardCommentListElement(props) {
           <S.Icon></S.Icon>
           <S.MainContentBox>
             <S.NameStarBox>
-              <S.Name>{props.e?.writer}</S.Name>
+              <S.Name></S.Name>
             </S.NameStarBox>
 
             <S.Content>{props.e?.contents}</S.Content>
-            <S.Date>{getMyDate(props.e?.createdAt)}</S.Date>
-            <Rate value={props.e?.rating} />
+            {/* <S.Date>{getMyDate(props.e?.createdAt)}</S.Date> */}
           </S.MainContentBox>
           <S.ReviseDelete>
             <S.Btn onClick={onClickReviseBtn}> </S.Btn>
-            <S.Btn id={props.e._id} onClick={props.onClickDeleteBtn}></S.Btn>
+            <S.Btn
+              id={props.e._id}
+              onClick={props.onClickDelete(props.e._id)}
+            ></S.Btn>
           </S.ReviseDelete>
         </S.CommentContainer>
       )}

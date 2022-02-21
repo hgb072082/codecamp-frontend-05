@@ -175,6 +175,6 @@ export const Btn = styled.button`
   width: 179px;
   height: 52px;
   text-align: center;
-  background-color: ${(props: IProps) => (props.isActive ? "yellow" : "none")};
+  background-color: yellow;
   border: none;
 `;

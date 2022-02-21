@@ -21,7 +21,9 @@
     "**/*.tsx",
     "src/components/units/products/write/ProductWrite.container.tsx",
     "src/components/commons/hocs/withAuth.js",
-    "src/components/commons/hooks/useAuth.js"
+    "src/components/commons/hooks/useAuth.js",
+    "src/components/units/products/commentlist/ProductCommentList.queries.js",
+    "src/components/units/products/commentlist/ProductCommentList.styles.js"
   ],
   "exclude": ["node_modules"]
 }

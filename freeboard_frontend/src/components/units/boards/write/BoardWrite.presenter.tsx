@@ -62,7 +62,7 @@ export default function BoardWriteUI(props: IBoardWriteProps) {
                 value={
                   props.zonecode
                     ? props.zonecode
-                    : props.data?.fetchBoard.boardAddress.zipcode
+                    : props.data?.fetchBoard.boardAddress?.zipcode
                 }
               ></styles.InputAreaNum>
               <styles.AreaNumSearchBtn onClick={props.onClickIsAddressModal}>
@@ -84,13 +84,13 @@ export default function BoardWriteUI(props: IBoardWriteProps) {
               value={
                 props.address
                   ? props.address
-                  : props.data?.fetchBoard.boardAddress.address
+                  : props.data?.fetchBoard?.boardAddress?.address
               }
             ></styles.InputTitleBox>
             <styles.InputTitleBox
               onChange={props.onChangeDetailAddress}
               placeholder="상세주소"
-              defaultValue={props.data?.fetchBoard.boardAddress.addressDetail}
+              defaultValue={props.data?.fetchBoard.boardAddress?.addressDetail}
             ></styles.InputTitleBox>
           </styles.ContentBox>
           <styles.ContentBox>
@@ -104,10 +104,17 @@ export default function BoardWriteUI(props: IBoardWriteProps) {
           <styles.ContentBox>
             <styles.TitleText>사진 첨부</styles.TitleText>
             <styles.UploadBtnBox>
-              {[1, 2, 3].map((e,idx) => {
-                return (<>
-      <FileUpload e={e} idx={idx} images={props.images} setImages={props.setImages} />
-                </>);
+              {[1, 2, 3].map((e, idx) => {
+                return (
+                  <>
+                    <FileUpload
+                      e={e}
+                      idx={idx}
+                      images={props.images}
+                      setImages={props.setImages}
+                    />
+                  </>
+                );
               })}
             </styles.UploadBtnBox>
           </styles.ContentBox>

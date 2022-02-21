@@ -16,11 +16,17 @@ import { createContext, useEffect, useState } from "react";
 export const GlobalContext = createContext({});
 function MyApp({ Component, pageProps }: AppProps) {
   const [accessToken, setAccessToken] = useState("");
+  const value = { accessToken, setAccessToken };
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      setAccessToken(localStorage.getItem("accessToken"));
+    }
+  }, []);
+
   const uploadLink = createUploadLink({
     uri: "http://backend05.codebootcamp.co.kr/graphql",
-    headers: { authorization: "Bearer" + { accessToken } },
+    headers: { authorization: "Bearer " + accessToken },
   });
-  const value = { accessToken, setAccessToken };
 
   useEffect(() => {
     if (localStorage.getItem("accessToken")) {

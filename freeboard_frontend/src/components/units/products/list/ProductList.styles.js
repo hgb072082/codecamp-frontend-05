@@ -1,5 +1,61 @@
 import styled from "@emotion/styled";
 
+export const OutWrapper = styled.div`
+  display: flex;
+`;
+export const TodaySawBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 196px;
+  border: 1px solid #bdbdbd;
+`;
+export const TodaySawTitleText = styled.div`
+  width: 91px;
+  height: 27px;
+  font-weight: 700;
+  font-size: 18px;
+`;
+
+export const TodaySaw = styled.div`
+  width: 156px;
+  height: 199px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #bdbdbd;
+`;
+export const LikedBox = styled.div`
+  width: 28px;
+  height: 18px;
+  display: flex;
+`;
+export const LikedImg = styled.img`
+  width: 15px;
+  height: 13.76px;
+`;
+export const Liked = styled.div`
+  font-size: 12px;
+  font-weight: 500;
+`;
+export const SawImg = styled.img`
+  width: 60px;
+  height: 60px;
+`;
+export const SawName = styled.div`
+  height: 18px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 17.76px;
+`;
+export const SawRemarks = styled.div`
+  font-size: 12px;
+  height: 18px;
+  color: #4f4f4f;
+`;
+export const SawPrice = styled.div`
+  height: 24px;
+  font-size: 16px;
+  font-weight: 700;
+`;
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;

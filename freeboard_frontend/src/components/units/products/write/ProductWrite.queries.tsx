@@ -1,43 +1,24 @@
 import { gql } from "@apollo/client";
 
-export const CREATE_BOARD = gql`
-  mutation createBoard($createBoardInput: CreateBoardInput!) {
-    createBoard(createBoardInput: $createBoardInput) {
+export const CREATE_USED_ITEM = gql`
+  mutation createUseditem($createUseditemInput: CreateUseditemInput!) {
+    createUseditem(createUseditemInput: $createUseditemInput) {
       _id
-      boardAddress {
-        zipcode
-        address
-        addressDetail
-      }
-    }
-  }
-`;
-export const UPLOAD_FILE = gql`
-  mutation uploadFile($file: Upload!) {
-    uploadFile(file: $file) {
-      url
     }
   }
 `;
 
-export const DELETE_BOARD = gql`
-  mutation deleteBoard($boardId: ID!) {
-    deleteBoard(boardId: $boardId)
-  }
-`;
-
-export const UPDATE_BOARD = gql`
-  mutation updateBoard(
-    $boardId: ID!
-    $password: String
-    $updateBoardInput: UpdateBoardInput!
+export const UPDATE_USED_ITEM = gql`
+  mutation updateUseditem(
+    $updateUseditemInput: UpdateUseditemInput!
+    $useditemId: ID!
   ) {
-    updateBoard(
-      boardId: $boardId
-      password: $password
-      updateBoardInput: $updateBoardInput
+    updateUseditem(
+      updateUseditemInput: $updateUseditemInput
+      useditemId: $useditemId
     ) {
       _id
+      name
     }
   }
 `;

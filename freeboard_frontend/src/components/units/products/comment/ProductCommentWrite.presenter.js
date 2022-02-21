@@ -14,8 +14,12 @@ export default function ProductCommentWriteUI(props) {
             <Styles.ContentLength>
               {props.comment ? props.comment.length : 0}/100
             </Styles.ContentLength>
-            <Styles.CommentSubmitBtn onClick={props.onClickSubmitBtn}>
-              문의하기
+            <Styles.CommentSubmitBtn
+              onClick={
+                props.isEditing ? props.onClickEditBtn : props.onClickSubmitBtn
+              }
+            >
+              {props.isEditing ? "수정하기" : "문의하기"}
             </Styles.CommentSubmitBtn>
           </Styles.ContentFooter>
         </Styles.ContentBox>
