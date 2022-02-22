@@ -1,3 +1,4 @@
+import { QuestionOutlined } from "@ant-design/icons";
 import { useEffect } from "react";
 import * as Styles from "./ProductList.styles";
 
@@ -33,9 +34,13 @@ export default function ProductListUI(props) {
 
           {props.data?.fetchUseditems.map((el) => (
             <Styles.ProductBox key={el._id} onClick={props.onClickProduct(el)}>
-              <Styles.ProductImg
-                src={`https://storage.googleapis.com/${el.images[0]}`}
-              />
+              {el.images[0] ? (
+                <Styles.ProductImg
+                  src={`https://storage.googleapis.com/${el.images[0]}`}
+                />
+              ) : (
+                <QuestionOutlined style={{ width: "160px", height: "160px" }} />
+              )}
               <Styles.ProductInfo>
                 <Styles.ProductTitle>{el.name}</Styles.ProductTitle>
                 <Styles.ProductRemarks>{el.remarks}</Styles.ProductRemarks>
@@ -60,15 +65,30 @@ export default function ProductListUI(props) {
           </div>
           <Styles.RegisterProductBtn>상품 등록하기</Styles.RegisterProductBtn>
         </Styles.Wrapper>
+
         <Styles.TodaySawBox>
-          <Styles.TodaySawTitleText></Styles.TodaySawTitleText>
-          <Styles.TodaySaw>
-            <Styles.LikedBox>
-              <Styles.LikedImg />
-              <Styles.Liked></Styles.Liked>
-            </Styles.LikedBox>
-            <Styles.SawImg />
-          </Styles.TodaySaw>
+          <Styles.TodaySawTitleText>오늘 본 상품</Styles.TodaySawTitleText>
+          {props.isSaw.map((el) => (
+            <Styles.TodaySaw
+              key={el._id}
+              onClick={props.onClickTodaySaw(el._id)}
+            >
+              <Styles.LikedBox>
+                <Styles.LikedImg />
+                <Styles.Liked></Styles.Liked>
+              </Styles.LikedBox>
+              {el.images[0] ? (
+                <Styles.SawImg
+                  src={`https://storage.googleapis.com/${el.images[0]}`}
+                />
+              ) : (
+                <></>
+              )}
+              <Styles.SawName>{el.name}</Styles.SawName>
+              <Styles.SawRemarks>{el.remarks}</Styles.SawRemarks>
+              <Styles.SawPrice>{el.price}원</Styles.SawPrice>
+            </Styles.TodaySaw>
+          ))}
         </Styles.TodaySawBox>
       </Styles.OutWrapper>
     </>

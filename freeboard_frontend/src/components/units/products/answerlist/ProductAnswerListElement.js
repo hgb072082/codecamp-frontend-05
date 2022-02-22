@@ -1,25 +1,29 @@
-import * as S from "./ProductCommentList.styles";
+import * as S from "./ProductAnswerList.styles";
 import { useState } from "react";
 
-import ProductCommentWrite from "../comment/ProductCommentWrite.container";
-import ProductAnswerList from "../answerlist/ProductAnswerList.container";
 import ProductAnswerWrite from "../answer/ProductAnswerWrite.container";
-export default function ProductCommentListElement(props) {
+export default function ProductAnswerListElement(props) {
   const [isEditing, setIsEditing] = useState(false);
-  const [isAnswering, setIsAnswering] = useState(false);
-  const onClickReviseBtn = () => {
+  const [selectedId, setSelectedId] = useState("");
+  const onClickReviseBtn = (event) => {
+    setSelectedId(props.e._id);
+    console.log(props.e);
     setIsEditing((prev) => !prev);
   };
-  const onClickAnswerBtn = () => {
-    setIsAnswering((prev) => !prev);
-  };
+
   return (
     <>
       {isEditing ? (
         <>
-          <ProductCommentWrite e={props.e} isEditing={isEditing} />
+          <ProductAnswerWrite
+            e={props.e}
+            isEditing={isEditing}
+            selectedId={selectedId}
+            setIsEditing={setIsEditing}
+          />
         </>
       ) : (
+        // hasmore가 true일때에
         <>
           <S.CommentContainer>
             <S.Icon></S.Icon>
@@ -38,15 +42,8 @@ export default function ProductCommentListElement(props) {
                 onClick={props.onClickDelete(props.e._id)}
               ></S.Btn>
             </S.ReviseDelete>
-            <S.ReviseDelete>
-              <S.Btn onClick={onClickAnswerBtn}> </S.Btn>
-            </S.ReviseDelete>
           </S.CommentContainer>
         </>
-      )}
-      <ProductAnswerList e={props.e} isAnswering={isAnswering} />
-      {isAnswering && (
-        <ProductAnswerWrite e={props.e} isAnswering={isAnswering} />
       )}
     </>
   );

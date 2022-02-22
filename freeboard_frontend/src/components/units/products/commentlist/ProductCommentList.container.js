@@ -12,7 +12,6 @@ export default function ProductCommentList() {
   const { data, fetchMore } = useQuery(FETCH_USED_ITEM_QUESTIONS, {
     variables: { useditemId: String(router.query.productNum) },
   });
-  console.log(data);
 
   const [deleteUseditemQuestion] = useMutation(DELETE_USED_ITEM_QUESTION);
 
@@ -26,8 +25,7 @@ export default function ProductCommentList() {
         if (!fetchMoreResult.fetchUseditemQuestions) {
           return { fetchUseditemQuestions: [...prev.fetchUseditemQuestions] };
         }
-        console.log(prev.fetchUseditemQuestions);
-        console.log(fetchMoreResult.fetchUseditemQuestions);
+
         return {
           fetchUseditemQuestions: [
             ...prev.fetchUseditemQuestions,
@@ -53,7 +51,6 @@ export default function ProductCommentList() {
       });
     } catch (error) {
       Modal.error({ content: error.message });
-      console.log("요기가문제야");
     }
   };
 

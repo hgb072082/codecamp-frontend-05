@@ -20,10 +20,9 @@ export default function ProductDetail() {
 
   const onClickDelete = async () => {
     try {
-      const result = await deleteUseditem({
+      await deleteUseditem({
         variables: { useditemId: router.query.productNum },
       });
-      console.log(result);
       Modal.success({ content: "삭제를 완료하였습니다!" });
       router.push("/products");
     } catch (error) {

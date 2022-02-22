@@ -5,11 +5,14 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 export default function ProductList() {
   const router = useRouter();
+  const onClickTodaySaw = (id) => () => {
+    router.push(`products/${id}`);
+  };
 
   useEffect(() => {
-    const temp = [];
+    let temp = [];
     if (localStorage.getItem("basket")) {
-      temp.push(JSON.parse(localStorage.getItem("basket")));
+      temp = [...JSON.parse(localStorage.getItem("basket"))];
     }
     setIsSaw(temp);
   }, []);
@@ -21,7 +24,6 @@ export default function ProductList() {
   console.log(data);
   const onClickProduct = (el) => () => {
     let isExist = false;
-    console.log(el);
 
     const baskets = JSON.parse(localStorage.getItem("basket") || "[]"); // [{_id: 1, writer: 영희}, {_id: 2, writer: 훈이}, {_id: 3, writer: 철수}]
     // const temp = baskets.filter((basketEl) => basketEl._id === el._id);
@@ -40,5 +42,12 @@ export default function ProductList() {
     router.push(`/products/${el._id}`);
   };
 
-  return <ProductListUI data={data} onClickProduct={onClickProduct} />;
+  return (
+    <ProductListUI
+      data={data}
+      onClickProduct={onClickProduct}
+      isSaw={isSaw}
+      onClickTodaySaw={onClickTodaySaw}
+    />
+  );
 }

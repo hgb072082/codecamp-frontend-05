@@ -11,7 +11,6 @@ import { Avatar } from "antd";
 import { LinkOutlined, UserOutlined } from "@ant-design/icons";
 
 export default function ProductDetailUI(props) {
-  console.log(props.data);
   return (
     <>
       <styles.Wrapper>
@@ -28,7 +27,12 @@ export default function ProductDetailUI(props) {
         <styles.BoardTitle>{props.data?.fetchUseditem.name}</styles.BoardTitle>
 
         <styles.BoardText>{props.data?.fetchUseditem.remarks}</styles.BoardText>
-        <styles.BoardTitle>{props.data?.fetchUseditem.price}</styles.BoardTitle>
+        <styles.BoardTitle>
+          {props.data?.fetchUseditem.price}원
+        </styles.BoardTitle>
+        <styles.BoardText>
+          {props.data?.fetchUseditem.contents}
+        </styles.BoardText>
         <img
           src={`https://storage.googleapis.com/${props.data?.fetchUseditem.images[0]}`}
         ></img>

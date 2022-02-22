@@ -2,10 +2,6 @@ import styled from "@emotion/styled";
 
 export const MyInput = styled.input``;
 
-interface IProps {
-  isActive: boolean;
-}
-
 export const Wrapper = styled.div`
   width: 1200px;
   border: 1px solid black;

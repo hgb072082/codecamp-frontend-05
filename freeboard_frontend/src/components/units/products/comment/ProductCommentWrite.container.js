@@ -44,9 +44,6 @@ export default function ProductCommentWrite(props) {
       input.contents = comment;
     }
     try {
-      console.log(localStorage.getItem("accessToken"));
-      console.log(router.query.productNum);
-      console.log(input);
       const result = await createUseditemQuestion({
         variables: {
           createUseditemQuestionInput: input,

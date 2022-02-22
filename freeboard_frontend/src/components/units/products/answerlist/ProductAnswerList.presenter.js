@@ -1,14 +1,14 @@
-import * as S from "./ProductCommentList.styles";
+import * as S from "./ProductAnswerList.styles";
 import "antd/dist/antd.css";
 
 import InfiniteScroll from "react-infinite-scroller";
-import ProductCommentListElement from "./ProductCommentListElement";
+import ProductAnswerListElement from "./ProductAnswerListElement";
 
-export default function ProductCommentListUI(props) {
+export default function ProductAnswerListUI(props) {
   return (
     <>
       <S.Wrapper>
-        {props.data?.fetchUseditemQuestions.map((e, i) => (
+        {props.data?.fetchUseditemQuestionAnswers.map((e, i) => (
           <InfiniteScroll
             key={i}
             pageStart={0}
@@ -16,13 +16,13 @@ export default function ProductCommentListUI(props) {
             hasMore={true}
           >
             댓글
-            <ProductCommentListElement
-              id={e._id}
+            <ProductAnswerListElement
               e={e}
               key={e.id}
               onClickDelete={props.onClickDelete}
               fetchMore={props.fetchMore}
               data={props.data}
+              isAnswering={props.isAnswering}
             />
           </InfiniteScroll>
         ))}
