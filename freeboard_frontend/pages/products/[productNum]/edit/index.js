@@ -12,6 +12,13 @@ const FETCH_USED_ITEM = gql`
       contents
       price
       images
+      useditemAddress {
+        zipcode
+        address
+        addressDetail
+        lat
+        lng
+      }
     }
   }
 `;
@@ -21,5 +28,6 @@ export default function ProductEditPage() {
   const { data } = useQuery(FETCH_USED_ITEM, {
     variables: { useditemId: router.query.productNum },
   });
-  return <ProductWrite isEdit={true} data={data} />;
+  console.log(data);
+  return <ProductWrite isEditing={true} data={data} />;
 }

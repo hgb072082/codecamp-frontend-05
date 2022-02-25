@@ -6,12 +6,7 @@ export function useAuth() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!localStorage.getItem("accessToken")) {
-      alert("로그인을 먼저 해주세요!!!");
-      router.push("/login");
-    } else {
-      setIsLoading(false);
-    }
+    setIsLoading(false);
   }, []);
 
   return {

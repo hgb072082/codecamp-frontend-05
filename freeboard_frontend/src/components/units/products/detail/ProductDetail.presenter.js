@@ -7,8 +7,15 @@ import ProductCommentList from "../commentlist/ProductCommentList.container";
 // import ReactPlayer from "react-player";
 // import { getMyDate } from "../../../commons/libraries/utils";
 // import { v4 as uuidv4 } from "uuid";
-import { Avatar } from "antd";
-import { LinkOutlined, UserOutlined } from "@ant-design/icons";
+import { getMyDate } from "../../../commons/libraries/utils";
+import { v4 as uuidv4 } from "uuid";
+
+import { Modal, Avatar } from "antd";
+import {
+  LinkOutlined,
+  UserOutlined,
+  EnvironmentOutlined,
+} from "@ant-design/icons";
 
 export default function ProductDetailUI(props) {
   return (
@@ -17,11 +24,29 @@ export default function ProductDetailUI(props) {
         <styles.Header>
           <Avatar size={55} icon={<UserOutlined />} />
           <styles.HeaderTextBox>
-            <styles.HeaderNameText>판매자</styles.HeaderNameText>
-            <styles.HeaderDateText></styles.HeaderDateText>
+            <styles.HeaderNameText>
+              {props.data?.fetchUseditem?.seller?.name}
+            </styles.HeaderNameText>
+            <styles.HeaderDateText>
+              {getMyDate(props.data?.fetchUseditem.createdAt)}
+            </styles.HeaderDateText>
           </styles.HeaderTextBox>
 
           <LinkOutlined style={{ fontSize: "30px" }} />
+          <EnvironmentOutlined
+            onClick={props.onClickGps}
+            style={{ fontSize: "30px" }}
+          />
+          {props.isAddressFetchModalOn && (
+            <Modal
+              visible={true}
+              onOk={props.onClickGps}
+              onCancel={props.onClickGps}
+            >
+              {props.data?.fetchUseditem?.useditemAddress?.address}
+              {props.data?.fetchUseditem?.useditemAddress?.addressDetail}
+            </Modal>
+          )}
         </styles.Header>
 
         <styles.BoardTitle>{props.data?.fetchUseditem.name}</styles.BoardTitle>
@@ -30,12 +55,20 @@ export default function ProductDetailUI(props) {
         <styles.BoardTitle>
           {props.data?.fetchUseditem.price}원
         </styles.BoardTitle>
+        {props.data?.fetchUseditem?.images.map((el) =>
+          el ? (
+            <img
+              key={uuidv4()}
+              style={{ width: "80px", height: "80px" }}
+              src={`https://storage.googleapis.com/${el}`}
+            ></img>
+          ) : (
+            <></>
+          )
+        )}
         <styles.BoardText>
           {props.data?.fetchUseditem.contents}
         </styles.BoardText>
-        <img
-          src={`https://storage.googleapis.com/${props.data?.fetchUseditem.images[0]}`}
-        ></img>
 
         <styles.BtnBox>
           <styles.Btn onClick={props.onClickMoveToList}>목록으로</styles.Btn>

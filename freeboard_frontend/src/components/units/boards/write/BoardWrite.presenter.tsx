@@ -60,9 +60,9 @@ export default function BoardWriteUI(props: IBoardWriteProps) {
               <styles.InputAreaNum
                 placeholder="07250"
                 value={
-                  props.zonecode
-                    ? props.zonecode
-                    : props.data?.fetchBoard.boardAddress?.zipcode
+                  props.data?.fetchBoard.boardAddress?.zipcode
+                    ? props.data?.fetchBoard.boardAddress?.zipcode
+                    : props.zonecode
                 }
               ></styles.InputAreaNum>
               <styles.AreaNumSearchBtn onClick={props.onClickIsAddressModal}>
@@ -70,7 +70,7 @@ export default function BoardWriteUI(props: IBoardWriteProps) {
               </styles.AreaNumSearchBtn>
               {props.isAddressModalOn && (
                 <Modal
-                  title="Basic Modal"
+                  title="주소"
                   visible={true}
                   onOk={props.onClickIsAddressModal}
                   onCancel={props.onClickIsAddressModal}

@@ -8,7 +8,9 @@ export default function ProductList() {
   const onClickTodaySaw = (id) => () => {
     router.push(`products/${id}`);
   };
-
+  const moveToProductWrite = () => {
+    router.push("/products/new");
+  };
   useEffect(() => {
     let temp = [];
     if (localStorage.getItem("basket")) {
@@ -48,6 +50,7 @@ export default function ProductList() {
       onClickProduct={onClickProduct}
       isSaw={isSaw}
       onClickTodaySaw={onClickTodaySaw}
+      moveToProductWrite={moveToProductWrite}
     />
   );
 }

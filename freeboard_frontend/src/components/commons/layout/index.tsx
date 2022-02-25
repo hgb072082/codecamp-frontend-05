@@ -10,8 +10,8 @@ const LayoutBody = styled.div``;
 export default function Layout(props) {
   return (
     <>
-      {/* <LayoutHeader />
-      <LayoutBanner  />
+      <LayoutHeader />
+      {/* <LayoutBanner  />
       <LayoutNavigation /> */}
       <BodyWrapper>
         <LayoutBody> {props.children} </LayoutBody>{" "}

@@ -8,9 +8,16 @@ import { GlobalContext } from "../../../../pages/_app";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
+// const LOGIN_USER = gql`
+//   mutation loginUser($password: String!, $email: String!) {
+//     loginUser(password: $password, email: $email) {
+//       accessToken
+//     }
+//   }
+// `;
 const LOGIN_USER = gql`
-  mutation loginUser($password: String!, $email: String!) {
-    loginUser(password: $password, email: $email) {
+  mutation loginUserExample($email: String!, $password: String!) {
+    loginUserExample(email: $email, password: $password) {
       accessToken
     }
   }
@@ -35,20 +42,21 @@ export default function LogIn() {
 
   const { setAccessToken } = useContext(GlobalContext);
 
-  const [loginUser] = useMutation(LOGIN_USER);
+  const [loginUserExample] = useMutation(LOGIN_USER);
 
   const onClickSubmit = async (data) => {
     try {
       console.log(data);
-      const result = await loginUser({
+      const result = await loginUserExample({
         variables: { ...data },
       });
-      const accessToken = result?.data?.loginUser.accessToken;
+      const accessToken = result?.data?.loginUserExample.accessToken || "";
+      console.log(accessToken);
       setAccessToken(accessToken);
-      console.log(result?.data?.loginUser.accessToken);
-      localStorage.setItem("accessToken", accessToken);
+      console.log(result?.data?.loginUserExample.accessToken);
 
       Modal.success({ content: "로그인 성공!" });
+
       router.push("/products/new");
     } catch (error) {
       Modal.error({ content: error.message });

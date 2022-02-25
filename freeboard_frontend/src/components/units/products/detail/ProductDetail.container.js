@@ -3,9 +3,14 @@ import { useQuery, useMutation } from "@apollo/client";
 import { FETCH_USED_ITEM, DELETE_USED_ITEM } from "./ProductDetail.queries";
 import { useRouter } from "next/router";
 import { Modal } from "antd";
+import { useState } from "react";
 
 export default function ProductDetail() {
   const router = useRouter();
+  const [isAddressFetchModalOn, setIsAddressFetchModalOn] = useState(false);
+  const onClickGps = () => {
+    setIsAddressFetchModalOn((prev) => !prev);
+  };
   const { data } = useQuery(FETCH_USED_ITEM, {
     variables: { useditemId: router.query.productNum },
   });
@@ -36,6 +41,8 @@ export default function ProductDetail() {
         onClickMoveToList={onClickMoveToList}
         onClickMoveToEdit={onClickMoveToEdit}
         onClickDelete={onClickDelete}
+        isAddressFetchModalOn={isAddressFetchModalOn}
+        onClickGps={onClickGps}
       />
     </>
   );

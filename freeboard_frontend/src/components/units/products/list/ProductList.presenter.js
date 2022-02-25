@@ -63,7 +63,9 @@ export default function ProductListUI(props) {
               );
             }, [])}
           </div>
-          <Styles.RegisterProductBtn>상품 등록하기</Styles.RegisterProductBtn>
+          <Styles.RegisterProductBtn onClick={props.moveToProductWrite}>
+            상품 등록하기
+          </Styles.RegisterProductBtn>
         </Styles.Wrapper>
 
         <Styles.TodaySawBox>
