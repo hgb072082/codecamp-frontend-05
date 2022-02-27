@@ -1,6 +1,6 @@
 import LoginUI from "./LogIn.presenter";
 import * as yup from "yup";
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext } from "react";
 import { Modal } from "antd";
@@ -15,6 +15,27 @@ import { useForm } from "react-hook-form";
 //     }
 //   }
 // `;
+
+const FETCH_USER_LOGGED_IN = gql`
+  query fetchUserLoggedIn {
+    fetchUserLoggedIn {
+      _id
+      email
+      name
+      picture
+      userPoint {
+        _id
+        amount
+        createdAt
+        updatedAt
+        deletedAt
+      }
+      createdAt
+      updatedAt
+      deletedAt
+    }
+  }
+`;
 const LOGIN_USER = gql`
   mutation loginUserExample($email: String!, $password: String!) {
     loginUserExample(email: $email, password: $password) {
@@ -34,27 +55,32 @@ const schema = yup.object().shape({
     .required("비밀번호는 필수 입력사항입니다."),
 });
 export default function LogIn() {
+  const { data } = useQuery(FETCH_USER_LOGGED_IN);
   const { register, handleSubmit, formState } = useForm({
     mode: "onChange",
     resolver: yupResolver(schema),
   });
   const router = useRouter();
 
-  const { setAccessToken } = useContext(GlobalContext);
+  const { setAccessToken, setUserInfo } = useContext(GlobalContext);
 
   const [loginUserExample] = useMutation(LOGIN_USER);
 
-  const onClickSubmit = async (data) => {
+  const onClickSubmit = async (input) => {
     try {
-      console.log(data);
+      console.log(input);
       const result = await loginUserExample({
-        variables: { ...data },
+        variables: { ...input },
       });
       const accessToken = result?.data?.loginUserExample.accessToken || "";
       console.log(accessToken);
       setAccessToken(accessToken);
       console.log(result?.data?.loginUserExample.accessToken);
 
+      console.log(data);
+
+      setUserInfo(data);
+      localStorage.setItem("userInfo", JSON.stringify(data));
       Modal.success({ content: "로그인 성공!" });
 
       router.push("/products/new");

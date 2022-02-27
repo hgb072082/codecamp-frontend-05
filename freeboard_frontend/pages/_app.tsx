@@ -20,12 +20,16 @@ export const GlobalContext = createContext(null);
 function MyApp({ Component, pageProps }: AppProps) {
   const [accessToken, setAccessToken] = useState("");
   const [userInfo, setUserInfo] = useState({});
-  const value = { accessToken, setAccessToken, userInfo, setUserInfo };
+  const value = { accessToken, setAccessToken, setUserInfo, userInfo };
   useEffect(() => {
     // if (localStorage.getItem("accessToken")) {
     //   setAccessToken(localStorage.getItem("accessToken") || "");
     // }
-
+    if (localStorage.getItem("userInfo")) {
+      setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
+    } else {
+      setUserInfo("");
+    }
     getAccessToken().then((newAccessToken) => {
       setAccessToken(newAccessToken);
     });

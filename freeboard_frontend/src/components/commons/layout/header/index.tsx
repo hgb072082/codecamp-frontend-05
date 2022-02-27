@@ -3,6 +3,13 @@ import styled from "@emotion/styled";
 import { Avatar } from "antd";
 import { useContext } from "react";
 import { GlobalContext } from "../../../../../pages/_app";
+import { gql, useMutation } from "@apollo/client";
+import { useRouter } from "next/router";
+const LOG_OUT_USER = gql`
+  mutation logoutUser {
+    logoutUser
+  }
+`;
 const Wrapper = styled.div`
   height: 150px;
   display: flex;
@@ -37,10 +44,30 @@ const UserIconBox = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
-export default function LayoutHeader() {
-  const { userInfo } = useContext(GlobalContext);
-  console.log(userInfo?.name);
+const LoginTxt = styled.div`
+  font-weight: 700;
+  align-items: center;
+  font-size: 16px;
+`;
+const JoinBtn = styled.div``;
 
+export default function LayoutHeader() {
+  const router = useRouter();
+  const { userInfo } = useContext(GlobalContext);
+  const [logoutUser] = useMutation(LOG_OUT_USER);
+  const moveToLogin = () => {
+    router.push("/login");
+  };
+  const onClickLogOut = async () => {
+    try {
+      logoutUser();
+      localStorage.removeItem("userInfo");
+
+      window.location.replace("/");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
   return (
     <Wrapper>
       <Container>
@@ -48,11 +75,15 @@ export default function LayoutHeader() {
           <HeaderLogoLeftTxt>{"{ }"} </HeaderLogoLeftTxt>
           <HeaderLogoRigthTxt> code.camp</HeaderLogoRigthTxt>
         </HeaderLogo>
-        <UserIconBox>
-          <Avatar size={48} icon={<UserOutlined />} />
-          {userInfo?.name}
-          <CaretDownOutlined />
-        </UserIconBox>
+        {userInfo ? (
+          <UserIconBox>
+            <Avatar size={30} icon={<UserOutlined />} />
+            <LoginTxt>{userInfo?.fetchUserLoggedIn?.name}</LoginTxt>
+            <CaretDownOutlined onClick={onClickLogOut} />
+          </UserIconBox>
+        ) : (
+          <LoginTxt onClick={moveToLogin}>로그인</LoginTxt>
+        )}
       </Container>
     </Wrapper>
   );
