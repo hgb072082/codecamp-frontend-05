@@ -1,6 +1,6 @@
 import LoginUI from "./LogIn.presenter";
 import * as yup from "yup";
-import { gql, useMutation, useApolloClient } from "@apollo/client";
+import { gql, useMutation, useLazyQuery } from "@apollo/client";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext } from "react";
 import { Modal } from "antd";
@@ -55,7 +55,8 @@ const schema = yup.object().shape({
     .required("비밀번호는 필수 입력사항입니다."),
 });
 export default function LogIn() {
-  const client = useApolloClient();
+  const [fetchUserLoggedIn] = useLazyQuery(FETCH_USER_LOGGED_IN);
+
   const { register, handleSubmit, formState } = useForm({
     mode: "onChange",
     resolver: yupResolver(schema),
@@ -76,11 +77,13 @@ export default function LogIn() {
       console.log(result);
       const accessToken = result?.data?.loginUser.accessToken || "";
       console.log(accessToken);
-      const resultUserInfo = await client.query({
-        query: FETCH_USER_LOGGED_IN,
-      });
-      const userInfo = resultUserInfo.data.fetchUserLoggedIn;
       setAccessToken(accessToken);
+      // const resultUserInfo = await client.query({
+      //   query: FETCH_USER_LOGGED_IN,
+      // });
+      const resultUserInfo = await fetchUserLoggedIn();
+      console.log("asd", resultUserInfo);
+      const userInfo = resultUserInfo.data.fetchUserLoggedIn;
       setUserInfo(userInfo);
       localStorage.setItem("userInfo", JSON.stringify(userInfo));
       console.log(result?.data?.loginUser.accessToken);

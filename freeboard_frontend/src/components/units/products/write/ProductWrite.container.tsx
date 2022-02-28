@@ -3,6 +3,7 @@ import ProductWriteUI from "./ProductWrite.presenter";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { CREATE_USED_ITEM, UPDATE_USED_ITEM } from "./ProductWrite.queries";
+import { useForm } from "react-hook-form";
 
 import { useEffect, useState } from "react";
 declare const window: typeof globalThis & {
@@ -10,19 +11,24 @@ declare const window: typeof globalThis & {
 };
 
 export default function BoardWrite(props) {
-  const [name, setName] = useState("");
-  const [contents, setContents] = useState("");
-  const [remarks, setRemarks] = useState("");
-  const [price, setPrice] = useState("");
+  const { register, handleSubmit, setValue, trigger } = useForm({
+    mode: "onChange",
+  });
+  const handleChange = (value: string) => {
+    console.log(value);
+
+    // register로 등록하지 않고, 강제로 값을 넣어주는 기능!!
+    setValue("contents", value === "<p><br></p>" ? "" : value);
+
+    // onChange 됐는지 안됐는지 react-hook-form에 알려주는 기능!!
+    trigger("contents");
+  };
+
   const [address, setAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
   const [zipcode, setZipcode] = useState("");
   const [isAddressModalOn, setIsAddressModalOn] = useState(false);
   const [images, setImages] = useState(["", "", ""]);
-
-  const onChangeContents = (event) => {
-    setContents(event.target.value);
-  };
 
   const onCompleteDaumPostcode = (data: any) => {
     console.log(data);
@@ -32,15 +38,6 @@ export default function BoardWrite(props) {
   };
   const onClickIsAddressModal = () => {
     setIsAddressModalOn((prev) => !prev);
-  };
-  const onChangeName = (e) => {
-    setName(e.target.value);
-  };
-  const onChangeRemarks = (e) => {
-    setRemarks(e.target.value);
-  };
-  const onChangePrice = (e) => {
-    setPrice(e.target.value);
   };
 
   const onChangeAddressDetail = (event: any) => {
@@ -52,16 +49,17 @@ export default function BoardWrite(props) {
   const [createUseditem] = useMutation(CREATE_USED_ITEM);
   const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
 
-  const onClickSubmitBtn = async () => {
+  const onClickSubmitBtn = async (data) => {
+    console.log(data);
     try {
       const result = await createUseditem({
         variables: {
           createUseditemInput: {
-            name,
-            remarks,
-            contents,
+            name: data.name,
+            remarks: data.remarks,
+            contents: data.contents,
             images,
-            price: Number(price),
+            price: Number(data.price),
             useditemAddress: {
               zipcode,
               address,
@@ -77,7 +75,7 @@ export default function BoardWrite(props) {
       Modal.error({ content: error.message });
     }
   };
-  const onClickUpdate = async () => {
+  const onClickUpdate = async (data) => {
     try {
       interface IUpdateUseditemInput {
         name?: string;
@@ -94,17 +92,17 @@ export default function BoardWrite(props) {
       }
       const updateUseditemInput: IUpdateUseditemInput = {};
 
-      if (name) {
-        updateUseditemInput.name = name;
+      if (data.name) {
+        updateUseditemInput.name = data.name;
       }
-      if (contents) {
-        updateUseditemInput.contents = contents;
+      if (data.contents) {
+        updateUseditemInput.contents = data.name;
       }
-      if (price) {
-        updateUseditemInput.price = Number(price);
+      if (data.price) {
+        updateUseditemInput.price = Number(data.price);
       }
-      if (remarks) {
-        updateUseditemInput.remarks = remarks;
+      if (data.remarks) {
+        updateUseditemInput.remarks = data.remarks;
       }
       if (address || zipcode || addressDetail) {
         updateUseditemInput.useditemAddress = {};
@@ -239,13 +237,11 @@ export default function BoardWrite(props) {
         isAddressModalOn={isAddressModalOn}
         onChangeAddressDetail={onChangeAddressDetail}
         address={address}
-        onChangeContents={onChangeContents}
-        onChangeName={onChangeName}
-        onChangePrice={onChangePrice}
-        onChangeRemarks={onChangeRemarks}
-        contents={contents}
         images={images}
         setImages={setImages}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        register={register}
       />
     </>
   );
