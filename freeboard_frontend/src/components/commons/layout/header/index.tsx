@@ -51,16 +51,53 @@ const LoginTxt = styled.div`
 `;
 const JoinBtn = styled.div``;
 
+// const Modal = styled.div`
+//   width: 258px;
+//   height: 226px;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   background-color: yellow;
+// `;
+// const ModalBox = styled.div`
+//   display: flex;
+//   flex-direction: column;
+// `;
+
+// const ModalProfileBox = styled.div`
+//   width: 100%;
+//   height: 96px;
+//   padding: 24px 0 24px 26px;
+//   display: flex;
+//   border-bottom: 1px solid black;
+// `;
+// const ModalBottomBox = styled.div`
+//   width: 100%;
+//   height: 130px;
+//   display: flex;
+//   flex-direction: column;
+// `;
+// const ModalBottomEl = styled.div`
+//   width: 100%;
+//   height: 65px;
+//   display: flex;
+//   padding: 20px 0 20px 39px;
+// `;
 export default function LayoutHeader() {
   const router = useRouter();
-  const { userInfo } = useContext(GlobalContext);
+  const { userInfo, setUserInfo } = useContext(GlobalContext);
+  console.log(userInfo);
   const [logoutUser] = useMutation(LOG_OUT_USER);
+  const onClickJoin = () => {
+    router.push("/join");
+  };
   const moveToLogin = () => {
     router.push("/login");
   };
   const onClickLogOut = async () => {
     try {
       logoutUser();
+      setUserInfo({});
       localStorage.removeItem("userInfo");
 
       window.location.replace("/");
@@ -75,14 +112,28 @@ export default function LayoutHeader() {
           <HeaderLogoLeftTxt>{"{ }"} </HeaderLogoLeftTxt>
           <HeaderLogoRigthTxt> code.camp</HeaderLogoRigthTxt>
         </HeaderLogo>
-        {userInfo ? (
-          <UserIconBox>
-            <Avatar size={30} icon={<UserOutlined />} />
-            <LoginTxt>{userInfo?.fetchUserLoggedIn?.name}</LoginTxt>
-            <CaretDownOutlined onClick={onClickLogOut} />
-          </UserIconBox>
+        {Object.keys(userInfo).length > 0 ? (
+          <>
+            {/* <ModalBox> */}
+            <UserIconBox>
+              <Avatar size={30} icon={<UserOutlined />} />
+              <LoginTxt>{userInfo?.fetchUserLoggedIn?.name}</LoginTxt>
+              <CaretDownOutlined onClick={onClickLogOut} />
+            </UserIconBox>
+            {/* <Modal>
+                <ModalProfileBox></ModalProfileBox>
+                <ModalBottomBox>
+                  <ModalBottomEl>충전하기</ModalBottomEl>
+                  <ModalBottomEl>로그아웃</ModalBottomEl>
+                </ModalBottomBox>
+              </Modal>
+            </ModalBox> */}
+          </>
         ) : (
-          <LoginTxt onClick={moveToLogin}>로그인</LoginTxt>
+          <>
+            <LoginTxt onClick={moveToLogin}>로그인</LoginTxt>
+            <JoinBtn onClick={onClickJoin}>회원가입</JoinBtn>
+          </>
         )}
       </Container>
     </Wrapper>
