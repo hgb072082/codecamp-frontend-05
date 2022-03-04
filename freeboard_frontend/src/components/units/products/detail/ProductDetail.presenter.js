@@ -72,8 +72,16 @@ export default function ProductDetailUI(props) {
 
         <styles.BtnBox>
           <styles.Btn onClick={props.onClickMoveToList}>목록으로</styles.Btn>
-          <styles.Btn onClick={props.onClickMoveToEdit}>수정하기</styles.Btn>
-          <styles.Btn onClick={props.onClickDelete}>삭제하기</styles.Btn>
+          {props.data?.fetchUseditem?.seller._id === props.userInfo._id ? (
+            <>
+              <styles.Btn onClick={props.onClickMoveToEdit}>
+                수정하기
+              </styles.Btn>
+              <styles.Btn onClick={props.onClickDelete}>삭제하기</styles.Btn>
+            </>
+          ) : (
+            <styles.Btn onClick={props.onClickBuy}>구매하기</styles.Btn>
+          )}
         </styles.BtnBox>
       </styles.Wrapper>
       <ProductCommentWrite />

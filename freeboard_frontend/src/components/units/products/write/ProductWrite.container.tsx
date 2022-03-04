@@ -5,18 +5,18 @@ import { useRouter } from "next/router";
 import { CREATE_USED_ITEM, UPDATE_USED_ITEM } from "./ProductWrite.queries";
 import { useForm } from "react-hook-form";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { GlobalContext } from "../../../../../pages/_app";
 declare const window: typeof globalThis & {
   kakao: any;
 };
 
 export default function BoardWrite(props) {
+  const { userInfo } = useContext(GlobalContext);
   const { register, handleSubmit, setValue, trigger } = useForm({
     mode: "onChange",
   });
   const handleChange = (value: string) => {
-    console.log(value);
-
     // register로 등록하지 않고, 강제로 값을 넣어주는 기능!!
     setValue("contents", value === "<p><br></p>" ? "" : value);
 
@@ -96,7 +96,7 @@ export default function BoardWrite(props) {
         updateUseditemInput.name = data.name;
       }
       if (data.contents) {
-        updateUseditemInput.contents = data.name;
+        updateUseditemInput.contents = data.contents;
       }
       if (data.price) {
         updateUseditemInput.price = Number(data.price);

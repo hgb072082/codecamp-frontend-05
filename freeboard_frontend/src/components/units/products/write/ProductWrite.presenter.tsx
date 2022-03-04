@@ -8,6 +8,7 @@ import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export default function ProductWriteUI(props) {
+  console.log(props.data);
   return (
     <>
       <styles.Wrapper>
@@ -41,7 +42,10 @@ export default function ProductWriteUI(props) {
             </styles.ContentBox>
             <styles.ContentBox>
               <styles.TitleText>상품설명</styles.TitleText>
-              <ReactQuill onChange={props.handleChange} />
+              <ReactQuill
+                onChange={props.handleChange}
+                value={props.data?.fetchUseditem.contents || ""}
+              />
             </styles.ContentBox>
             <styles.ContentBox>
               <styles.TitleText>판매가격</styles.TitleText>
@@ -65,9 +69,8 @@ export default function ProductWriteUI(props) {
                 <styles.InputAreaNum
                   placeholder="07250"
                   value={
+                    props.zipcode ||
                     props.data?.fetchUseditem?.useditemAddress?.zipcode
-                      ? props.data?.fetchUseditem?.useditemAddress?.zipcode
-                      : props.zipcode
                   }
                   readOnly={true}
                 ></styles.InputAreaNum>
@@ -91,9 +94,8 @@ export default function ProductWriteUI(props) {
 
               <styles.InputTitleBox
                 value={
+                  props.address ||
                   props.data?.fetchUseditem?.useditemAddress?.address
-                    ? props.data?.fetchUseditem?.useditemAddress?.address
-                    : props.address
                 }
                 readOnly={true}
               ></styles.InputTitleBox>

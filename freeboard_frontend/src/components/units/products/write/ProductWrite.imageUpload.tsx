@@ -37,7 +37,11 @@ export default function FileUpload(props) {
 
   return (
     <>
-      <styles.PictureUploadBtn key={props.e} onClick={onClickImage}>
+      <styles.PictureUploadBtn
+        type="button"
+        key={props.e}
+        onClick={onClickImage}
+      >
         <styles.PicturePlusText>+</styles.PicturePlusText>
         <styles.PictureUploadText>Upload</styles.PictureUploadText>
       </styles.PictureUploadBtn>

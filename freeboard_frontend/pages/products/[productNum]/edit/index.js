@@ -2,6 +2,7 @@ import ProductWrite from "../../../../src/components/units/products/write/Produc
 
 import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
+import { useAuth } from "../../../../src/components/commons/hooks/useAuth";
 
 const FETCH_USED_ITEM = gql`
   query fetchUseditem($useditemId: ID!) {
@@ -29,5 +30,11 @@ export default function ProductEditPage() {
     variables: { useditemId: router.query.productNum },
   });
   console.log(data);
-  return <ProductWrite isEditing={true} data={data} />;
+
+  const { isLoading } = useAuth();
+  if (isLoading) {
+    return <></>;
+  } else {
+    return <ProductWrite isEditing={true} data={data} />;
+  }
 }

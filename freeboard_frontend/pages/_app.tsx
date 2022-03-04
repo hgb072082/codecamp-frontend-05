@@ -22,9 +22,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [userInfo, setUserInfo] = useState({});
   const value = { accessToken, setAccessToken, setUserInfo, userInfo };
   useEffect(() => {
-    // if (localStorage.getItem("accessToken")) {
-    //   setAccessToken(localStorage.getItem("accessToken") || "");
-    // }
+    console.log("실행되나?");
+
     if (localStorage.getItem("userInfo")) {
       setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
     }
@@ -38,10 +37,8 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     if (graphQLErrors) {
       for (const err of graphQLErrors) {
-        console.log(err);
         // 2. 해당 에러가 토큰만료 에러인지 체크(UNAUTHENTICATED)
         if (err.extensions.code === "UNAUTHENTICATED") {
-          console.log(err);
           // 3. refreshToken으로 accessToken을 재발급 받기
           getAccessToken().then((newAccessToken) => {
             // 4. 재발급 받은 accessToken 저장하기
