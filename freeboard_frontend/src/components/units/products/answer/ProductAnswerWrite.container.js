@@ -4,11 +4,9 @@ import {
   CREATE_USED_ITEM_QUESTION_ANSWER,
   UPDATE_USED_ITEM_QUESTION_ANSWER,
 } from "./ProductAnswerWrite.queries";
-import { useRouter } from "next/router";
 import { Modal } from "antd";
 import ProductAnswerWriteUI from "./ProductAnswerWrite.presenter";
 export default function ProductAnswerWrite(props) {
-  const router = useRouter();
   const [answer, setAnswer] = useState();
   const [createUseditemAnswer] = useMutation(CREATE_USED_ITEM_QUESTION_ANSWER);
   const [updateUseditemAnswer] = useMutation(UPDATE_USED_ITEM_QUESTION_ANSWER);

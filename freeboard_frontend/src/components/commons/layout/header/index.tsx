@@ -148,7 +148,9 @@ const CREATE_POINT_TRANSACTION_OF_LOADING = gql`
   }
 `;
 // 충전하기
-
+declare const window: typeof globalThis & {
+  IMP: any;
+};
 // const PigImg = styled.img``;
 const PlzSelectTxt = styled.div``;
 const { SubMenu } = Menu;

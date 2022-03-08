@@ -53,8 +53,8 @@ export default function BoardCommentList() {
     });
   };
 
-  const onClickDeleteBtn = () => {
-    setSelectedId(event.target.id);
+  const onClickDeleteBtn = (id) => () => {
+    setSelectedId(id);
     setDeleteIsOpen((prev) => !prev);
   };
   const onChangePassword = (event) => {

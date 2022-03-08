@@ -5,14 +5,12 @@ import { useRouter } from "next/router";
 import { CREATE_USED_ITEM, UPDATE_USED_ITEM } from "./ProductWrite.queries";
 import { useForm } from "react-hook-form";
 
-import { useContext, useEffect, useState } from "react";
-import { GlobalContext } from "../../../../../pages/_app";
+import { useEffect, useState } from "react";
 declare const window: typeof globalThis & {
   kakao: any;
 };
 
 export default function BoardWrite(props) {
-  const { userInfo } = useContext(GlobalContext);
   const { register, handleSubmit, setValue, trigger } = useForm({
     mode: "onChange",
   });
